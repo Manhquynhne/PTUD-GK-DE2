@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Panel - To-Do List{% endblock %}
+
+{% block content %}
+<h1 class="text-center">Admin Panel - User Management</h1>
+
+<table class="table table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Role</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.username }}</td>
+            <td>{% if user.is_admin %}Admin{% else %}User{% endif %}</td>
+            <td>{% if user.is_blocked %}<span class="text-danger">Blocked</span>{% else %}<span class="text-success">Active</span>{% endif %}</td>
+            <td>
+                {% if not user.is_admin %}
+                    <a href="{{ url_for('toggle_block', user_id=user.id) }}" class="btn btn-sm {% if user.is_blocked %}btn-success{% else %}btn-danger{% endif %}">
+                        {% if user.is_blocked %}Unblock{% else %}Block{% endif %}
+                    </a>
+                {% else %}
+                    <span>-</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

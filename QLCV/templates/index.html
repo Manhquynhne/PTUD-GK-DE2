@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}To-Do List{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="text-center my-4">All Tasks</h2>
+
+    <!-- ✅ Bộ lọc theo danh mục -->
+    <div class="mb-4">
+        <form action="{{ url_for('index') }}" method="GET" id="categoryFilterForm">
+            <select name="category_id" class="form-select" id="categorySelect">
+                <option value="">-- All Categories --</option>
+                {% for category in categories %}
+                    <option value="{{ category.id }}" {% if selected_category == category.id %}selected{% endif %}>
+                        {{ category.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </form>
+    </div>
+
+    <!-- ✅ Hiển thị công việc theo danh mục -->
+    {% for category in categories %}
+        <h4 class="mt-4">{{ category.name }}</h4>
+        <div class="row">
+            {% for task in tasks %}
+                {% if task.category_id == category.id %}
+                <div class="col-md-4 mb-3">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ task.title }}</h5>
+                            <p class="card-text">{{ task.description }}</p>
+
+                            {% if task.deadline %}
+                            <p class="text-muted"><strong>Deadline:</strong> {{ task.deadline.strftime('%d/%m/%Y') }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endfor %}
+
+    <div class="text-center mt-4">
+        <a href="{{ url_for('new_task') }}" class="btn btn-primary">Add New Task</a>
+    </div>
+</div>
+
+<!-- ✅ JavaScript để tự động submit khi chọn danh mục -->
+<script>
+    document.getElementById("categorySelect").addEventListener("change", function() {
+        document.getElementById("categoryFilterForm").submit();
+    });
+</script>
+{% endblock %}
