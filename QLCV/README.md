@@ -1,3 +1,9 @@
+## Thông tin sinh viên
+Họ và tên : Trương Mạnh Quỳnh
+MSSV: 22715721
+stt: 52
+=> 53%3 + 1 = 2
+
 # 📝 To-Do List App with Flask
 
 ## 📌 Giới thiệu
@@ -7,6 +13,11 @@
 - 🔐 Chức năng Admin quản lý người dùng (Block/Unblock)
 - 💾 Lưu trữ dữ liệu với SQLite và Flask-SQLAlchemy
 - 🚀 Giao diện hiện đại với Bootstrap
+- Thêm avata
+- hiển thị dưới dạng Card-Based (Dạng Thẻ)
+- Viết thêm chức năng quản lý phân loại công việc (category) để người
+dùng có thể dễ theo dõi.
+
 
 ---
 
